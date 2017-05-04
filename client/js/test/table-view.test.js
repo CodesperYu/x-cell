@@ -119,7 +119,7 @@ describe('table-view', () => {
 	});
 
 	describe('table footer', () => {
-		it('same amount of cells in a row',() => {
+		it('same amount of cells in a row', () => {
 			
 			//set up the initial state
 			const numCols = 6;
@@ -150,7 +150,7 @@ describe('table-view', () => {
 			expect(tf[0].textContent).toBe('3');
 		});
 
-		it('adds the correct sum w/ gaps and letters' ,() => {
+		it('adds the correct sum w/ gaps and letters', () => {
 			
 			//set up initial state
 			const model = new TableModel(5, 5);
@@ -171,7 +171,7 @@ describe('table-view', () => {
 			expect(tf[0].textContent).toBe('13');
 		});
 		
-		it('adds the correct sum w/ gaps and letters' ,() => {
+		it('adds the correct sum w/ gaps and letters', () => {
 			
 			//set up initial state
 			const model = new TableModel(5, 5);
