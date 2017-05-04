@@ -32,7 +32,7 @@ describe('table-view', () => {
 			expect(trs[0].cells[0].textContent).toBe('65');
 		});
 
-		it('updates FROM the valueu of the current cell', () => {
+		it('updates FROM the value of the current cell', () => {
 			//set up the initial state
 			const model = new TableModel(3,3);
 			const view = new TableView(model);
@@ -102,7 +102,7 @@ describe('table-view', () => {
 
 	describe('table header', () => {
 		it('has valid column header labels', () => {
-			//set up the initial state)
+			//set up the initial state
 			const numCols = 6;
 			const numRows = 10;
 			const model = new TableModel(numCols, numRows);
@@ -118,5 +118,78 @@ describe('table-view', () => {
 		});
 	});
 
+	describe('table footer', () => {
+		it('same amount of cells in a row',() => {
+			
+			//set up the initial state
+			const numCols = 6;
+			const numRows = 10;
+			const model = new TableModel(numCols, numRows);
+			const view = new TableView(model);
+			view.init();
+			
+			//inspect the initial state
+			let tf = document.querySelectorAll('TFOOT TD');
+			expect(tf.length).toBe(numCols);
+		});
 
+		it('updates without click', () => {
+			
+			//set up initial state
+			const model = new TableModel(3, 3);
+			const view = new TableView(model);
+			model.setValue({col: 0, row: 0}, '3');
+			view.init();
+			
+			//inspect the initial state
+			const trs = document.querySelectorAll('TBODY TR');
+			expect(trs[0].cells[0].textContent).toBe('3');
+
+			//inspect the resulting state
+			const tf = document.querySelectorAll('TFOOT TD');
+			expect(tf[0].textContent).toBe('3');
+		});
+
+		it('adds the correct sum w/ gaps and letters' ,() => {
+			
+			//set up initial state
+			const model = new TableModel(5, 5);
+			const view = new TableView(model);
+			model.setValue({col: 0, row: 1}, '3');
+			model.setValue({col: 0, row: 2}, 'a');
+			model.setValue({col: 0, row: 4}, '10');
+			view.init();
+			
+			//inspect the initial state
+			const trs = document.querySelectorAll('TBODY TR');
+			expect(trs[1].cells[0].textContent).toBe('3');
+			expect(trs[2].cells[0].textContent).toBe('a');
+			expect(trs[4].cells[0].textContent).toBe('10');
+			
+			//simulate result
+			const tf = document.querySelectorAll('TFOOT TD');
+			expect(tf[0].textContent).toBe('13');
+		});
+		
+		it('adds the correct sum w/ gaps and letters' ,() => {
+			
+			//set up initial state
+			const model = new TableModel(5, 5);
+			const view = new TableView(model);
+			model.setValue({col: 0, row: 1}, '3');
+			model.setValue({col: 1, row: 1}, '5');
+			model.setValue({col: 0, row: 4}, '10');
+			view.init();
+			
+			//inspect the initial state
+			const trs = document.querySelectorAll('TBODY TR');
+			expect(trs[1].cells[0].textContent).toBe('3');
+			expect(trs[1].cells[1].textContent).toBe('5');
+			expect(trs[4].cells[0].textContent).toBe('10');
+			
+			//simulate result
+			const tf = document.querySelectorAll('TFOOT TD');
+			expect(tf[0].textContent).toBe('13');
+		});
+	});
 });
